@@ -1,0 +1,43 @@
+
+colors = ['Red', 'Green', 'Blue']
+
+states = ['A', 'B', 'C', 'D']
+
+neighbors = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+assignment = {}
+
+def is_valid(state, color):
+    for neighbor in neighbors[state]:
+        if neighbor in assignment and assignment[neighbor] == color:
+            return False
+    return True
+
+def solve():
+    if len(assignment) == len(states):
+        return True
+
+    state = next(s for s in states if s not in assignment)
+
+    for color in colors:
+        if is_valid(state, color):
+            assignment[state] = color
+
+            if solve():
+                return True
+
+            del assignment[state]
+
+    return False
+
+if solve():
+    print("Map Coloring Solution:")
+    for state, color in assignment.items():
+        print(state, ":", color)
+else:
+    print("No solution exists")
