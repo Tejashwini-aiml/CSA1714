@@ -1,0 +1,45 @@
+import random
+
+# Distance between cities
+cities = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+n = len(cities)
+
+def distance(route):
+    total = 0
+    for i in range(n):
+        total += cities[route[i]][route[(i + 1) % n]]
+    return total
+
+# Generate random routes
+population = [
+    random.sample(range(n), n)
+    for _ in range(10)
+]
+
+# Genetic Algorithm
+for generation in range(100):
+    population.sort(key=distance)
+
+    new_population = population[:2]
+
+    while len(new_population) < 10:
+        parent = random.choice(population[:5])
+        child = parent[:]
+
+        a, b = random.sample(range(n), 2)
+        child[a], child[b] = child[b], child[a]
+
+        new_population.append(child)
+
+    population = new_population
+
+best_route = min(population, key=distance)
+
+print("Shortest Route:", best_route + [best_route[0]])
+print("Minimum Distance:", distance(best_route))
