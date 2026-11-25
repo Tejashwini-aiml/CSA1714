@@ -1,0 +1,21 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2, 4, 5, 4, 5])
+
+model = LinearRegression()
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print("Predicted values:", predictions)
+print("Prediction for 6:", model.predict([[6]])[0])
+
+plt.scatter(X, y)
+plt.plot(X, predictions)
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Linear Regression")
+plt.show()
