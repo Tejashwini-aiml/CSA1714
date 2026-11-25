@@ -1,0 +1,21 @@
+male(john).
+male(paul).
+
+female(mary).
+female(lisa).
+
+parent(john, paul).
+parent(mary, paul).
+parent(paul, lisa).
+
+father(F, C) :-
+    male(F),
+    parent(F, C).
+
+mother(M, C) :-
+    female(M),
+    parent(M, C).
+
+grandparent(G, C) :-
+    parent(G, P),
+    parent(P, C).
