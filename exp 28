@@ -1,0 +1,36 @@
+:- use_module(library(pairs)).
+
+edge(a, b, 2).
+edge(a, c, 4).
+edge(b, d, 3).
+edge(c, d, 1).
+edge(d, e, 2).
+
+heuristic(a, 5).
+heuristic(b, 3).
+heuristic(c, 2).
+heuristic(d, 1).
+heuristic(e, 0).
+
+best_first(Start, Goal, Path) :-
+    search([[Start]], Goal, RevPath),
+    reverse(RevPath, Path).
+
+search([[Goal|Rest]|_], Goal, [Goal|Rest]).
+
+search([[Node|Rest]|OtherPaths], Goal, Path) :-
+    findall([Next,Node|Rest],
+        (edge(Node, Next, _),
+         \+ member(Next, [Node|Rest])),
+        NewPaths),
+    append(OtherPaths, NewPaths, Paths),
+    sort_paths(Paths, Sorted),
+    search(Sorted, Goal, Path).
+
+sort_paths(Paths, Sorted) :-
+    map_list_to_pairs(path_score, Paths, Pairs),
+    keysort(Pairs, SortedPairs),
+    pairs_values(SortedPairs, Sorted).
+
+path_score([Node|_], H) :-
+    heuristic(Node, H).
