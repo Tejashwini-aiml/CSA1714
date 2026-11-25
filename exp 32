@@ -1,0 +1,18 @@
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+X = [[1, 20], [2, 25], [3, 30],
+     [6, 40], [7, 45], [8, 50]]
+
+y = [0, 0, 0, 1, 1, 1]
+
+model = DecisionTreeClassifier()
+model.fit(X, y)
+
+prediction = model.predict([[5, 35]])
+
+print("Predicted class:", prediction[0])
+
+tree.plot_tree(model, filled=True)
+plt.show()
