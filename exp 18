@@ -1,0 +1,13 @@
+student(anu, s101).
+student(bala, s102).
+
+teaches(mr_kumar, s101, ai101).
+teaches(ms_meena, s102, cs102).
+
+subject(ai101, artificial_intelligence).
+subject(cs102, computer_science).
+
+student_subject(Student, Teacher, Subject) :-
+    student(Student, Code),
+    teaches(Teacher, Code, SubCode),
+    subject(SubCode, Subject).
