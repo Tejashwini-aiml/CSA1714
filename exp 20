@@ -1,0 +1,5 @@
+human(socrates).
+human(plato).
+
+mortal(X) :-
+    human(X).
