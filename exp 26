@@ -1,0 +1,20 @@
+goal_state(state(_, _, has_banana)).
+
+move(state(at_door, on_floor, has_not),
+     state(at_window, on_floor, has_not),
+     walk_to_window).
+
+move(state(at_window, on_floor, has_not),
+     state(at_window, on_box, has_not),
+     climb_box).
+
+move(state(at_window, on_box, has_not),
+     state(at_window, on_box, has_banana),
+     grasp_banana).
+
+solve(State, []) :-
+    goal_state(State).
+
+solve(State, [Action|Rest]) :-
+    move(State, NextState, Action),
+    solve(NextState, Rest).
