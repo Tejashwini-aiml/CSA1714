@@ -1,0 +1,15 @@
+symptom(ravi, fever).
+symptom(ravi, cough).
+symptom(ravi, body_pain).
+
+symptom(meena, sneezing).
+symptom(meena, runny_nose).
+
+diagnosis(Person, flu_like_illness) :-
+    symptom(Person, fever),
+    symptom(Person, cough),
+    symptom(Person, body_pain).
+
+diagnosis(Person, common_cold_like_illness) :-
+    symptom(Person, sneezing),
+    symptom(Person, runny_nose).
