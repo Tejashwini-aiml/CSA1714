@@ -1,0 +1,23 @@
+bird(parrot).
+bird(pigeon).
+bird(ostrich).
+bird(penguin).
+
+can_fly(Bird) :-
+    bird(Bird),
+    Bird \= ostrich,
+    Bird \= penguin.
+
+cannot_fly(Bird) :-
+    bird(Bird),
+    (Bird = ostrich ; Bird = penguin).
+
+check_fly(Bird) :-
+    (can_fly(Bird) ->
+        write(Bird), writeln(' can fly')
+    ;
+        cannot_fly(Bird) ->
+        write(Bird), writeln(' cannot fly')
+    ;
+        write('Bird not found'), nl
+    ).
